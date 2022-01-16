@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Vaz",
+    "models": [
+      {
+        "title": "Vesta"
+      },
+      {
+        "title": "Lada"
+      }
+    ]
+  },
+  {
+    "title": "Ford",
+    "models": [
+      {
+        "title": "Focus",
+        "models": [{ "title": "S Sedan" }, { "title": "SE Sedan" }]
+      },
+      {
+        "title": "Fiesta"
+      }
+    ]
+  }
+]

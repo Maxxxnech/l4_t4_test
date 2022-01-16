@@ -1,0 +1,8 @@
+[
+  { "parentId": null, "id": 1, "title": "vaz" },
+  { "parentId": 1, "id": 2, "title": "vesta" },
+  { "parentId": 1, "id": 3, "title": "lada" },
+  { "parentId": null, "id": 4, "title": "Ford" },
+  { "parentId": 4, "id": 5, "title": "Focus" },
+  { "parentId": 4, "id": 6, "title": "Fiesta" }
+]
