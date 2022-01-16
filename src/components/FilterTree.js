@@ -17,12 +17,12 @@ export default class FilterTree extends Component {
 
     return newTree?.filter((el) => {
       if (!el) return false;
-
+      let models;
       if (el.models) {
-        el.models = this.filterTree(el.models, value);
+        models = this.filterTree(el.models, value);
       }
       if (
-        (el.models && el.models.length) ||
+        (models && models.length) ||
         el.title.toLowerCase().includes(valueLowercase)
       )
         return true;
