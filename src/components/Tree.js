@@ -3,20 +3,30 @@ import ListItem from "./ListItem";
 import "./css/Tree.css";
 
 export default class Tree extends Component {
+  result = [];
+  liIndex = 0;
+
   constructor(props) {
     super(props);
   }
 
+  
+  mapper(arr, level = 0) {
+    return arr.reduce((acc, el) => {
+        var children = null;
+        acc.push(<ListItem key={++this.liIndex} title={el.title} level={level} children={children}/>)
+        if(el.models){
+            acc.push([...this.mapper(el.models, level + 1)]);
+        }
+        return acc ;
+    }, [])
+  }
+
+
   render() {
-    let { cars } = this.props;
-    //!!! key={el.key} (not key={i}) is must for proper rendering of nesting 
     return (
       <div className="Tree">
-        <ul>
-          {cars.map ? cars.map((el, i) => (
-            <ListItem key={el.key} title={el.title} level={el.level} />
-          )) : cars  }
-        </ul>
+        <ul>{this.mapper(this.props.cars)}</ul>
       </div>
     );
   }

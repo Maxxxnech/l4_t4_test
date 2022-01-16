@@ -3,58 +3,46 @@ import Tree from "./Tree";
 import "./css/FilterTree.css";
 
 export default class FilterTree extends Component {
-  result = [];
-  liIndex = 0;
-  flattened = this.mapper(this.props.cars);
 
   constructor(props) {
     super(props);
-    this.state = { cars: this.flattened };
+    this.state = { cars: this.props.cars };
     this.handleChange = this.handleChange.bind(this);
-
     this.filterTree = this.filterTree.bind(this);
-
-    //this.mapper = this.mapper.bind(this);
   }
 
-  /**
-   * @param {Arrфн} arr массив
-   * @param {Number} level уровень вложенности
-   * @returns плоский массив
-   */
-
-  mapper(arr, level = 0) {
-    arr?.forEach((el, i) => {
-      this.result.push({ key: ++this.liIndex, title: el.title, level });
-      if (el.models) {
-        this.mapper(el.models, level + 1);
-      }
-    });
-    return this.result;
-  }
 
   filterTree(tree, value) {
-    if (!value) return tree;
-
-    if (!tree || !tree.length) return null;
-
     const valueLowercase = value.toLowerCase();
-    return tree.filter((el) => {
-      return el.title && ~el.title.toLowerCase().indexOf(valueLowercase);
+    return tree?.filter((el)=> {
+       if(!el) return false;
+      
+       if(el.models){
+        el.models = this.filterTree(el.models, value);
+       } 
+       if((el.models && el.models.length) || el.title.toLowerCase().includes(valueLowercase)) return true;
     });
   }
 
   handleChange(e) {
     const currentValue = e.target.value;
-
-    const newCars = this.filterTree(this.flattened, currentValue);
+    console.log('currentValue: ' + currentValue)
+    if(!currentValue){
+        console.log('' + this.props.cars.length);
+        return this.setState((prevState) => ({
+            cars: this.props.cars,
+          }));
+    }
+    let newCars = this.filterTree(this.props.cars, currentValue);
+    console.log(newCars);
     this.setState((prevState) => ({
       cars: newCars,
     }));
   }
 
   render() {
-    let { cars } = this.state;
+    const {cars} = this.state;
+    //console.log(cars);
     return (
       <div>
         <input ref={this.inputRef} onChange={this.handleChange} type="text" />
