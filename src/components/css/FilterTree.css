@@ -1,4 +1,17 @@
+.filterWrapper{
+   text-align: left;
+}
+.filterWrapper.color li{
+   color: green;
+}
+
+input {
+   margin-left: 20px;
+}
 
 .noFound {
-   color: "red";
+   margin: 10px;
+   color: red;
+   font-size: large;
+   font-weight: bold;
 }

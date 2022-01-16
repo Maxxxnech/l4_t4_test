@@ -1,7 +1,5 @@
-ul {
+.treeWrapper {
     text-align: left;
-}
-
-.noFound {
-   color: "red";
+    display: flex;
+    height: 30%;
 }
