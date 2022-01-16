@@ -17,15 +17,16 @@ export default class FilterTree extends Component {
 
     return newTree?.filter((el) => {
       if (!el) return false;
-      let models;
+      
+      if (el.title.toLowerCase().includes(valueLowercase)) return true;
+      
       if (el.models) {
-        models = this.filterTree(el.models, value);
+        el.models = this.filterTree(el.models, value);
+        if (el.models && el.models.length) {
+            return true;
+        }
       }
-      if (
-        (models && models.length) ||
-        el.title.toLowerCase().includes(valueLowercase)
-      )
-        return true;
+      
     });
   }
 
@@ -48,7 +49,12 @@ export default class FilterTree extends Component {
     const { cars } = this.state;
     return (
       <div>
-        <input ref={this.inputRef} onChange={this.handleChange} type="text" placeholder="Car name" />
+        <input
+          ref={this.inputRef}
+          onChange={this.handleChange}
+          type="text"
+          placeholder="Car name"
+        />
         {cars && cars.length ? (
           <Tree cars={cars} />
         ) : (
